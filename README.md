@@ -29,3 +29,31 @@ A C++ class for making and editing a bank account.
 | `bool operator==(const BankAccount& other) const`  | (Equality Operator)     | Equality operator.                     |
 | `bool operator<(const BankAccount& other) const`   | (Less Than Operator)    | Less than operator.                    |
 | `bool operator>(const BankAccount& other) const`   | (Greater Than Operator) | Greater than operator.                 |
+
+---
+# CheckingAccount Class
+
+## Data Dictionary
+| Attribute | Data Type | Description |
+|-----------|-----------|-------------|
+| temp      | temp      | temp        |
+
+## Methods List
+
+| Method Signature | Return Type | Description |
+|------------------|-------------|-------------|
+| temp             | temp        | temp        |
+
+---
+# SavingsAccount Class
+
+## Data Dictionary
+| Attribute | Data Type | Description |
+|-----------|-----------|-------------|
+| temp      | temp      | temp        |
+
+## Methods List
+
+| Method Signature | Return Type | Description |
+|------------------|-------------|-------------|
+| temp             | temp        | temp        |
