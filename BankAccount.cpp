@@ -12,6 +12,7 @@
 #include <thread>
 #include <chrono>
 #include <cstdlib>
+#include <random>
 
 
 string BankAccount::getAccountNumber() {
@@ -154,6 +155,8 @@ BankAccount BankAccount::copyAccount(const BankAccount *account) {
 }
 // Gemini AI helpt me rewrite this function. It still has my base code though
 unique_ptr<BankAccount> BankAccount::accountCreator() {
+    mt19937 generator(std::random_device{}());
+    uniform_real_distribution<double> distribution(0.0, 10000.0);
     int accountTypeToUse = InputValidator::getValidInput<int>(
         "What kind of account do you want to make? (1) Checking (2) Savings: ");
 
@@ -179,6 +182,16 @@ unique_ptr<BankAccount> BankAccount::accountCreator() {
         case 2: {
             auto [number, name, balance] = getAccountDetails();
             return make_unique<SavingsAccount>(number, name, balance);
+        }
+        case 3: {
+            cout << "Creating default Checking Account for testing..." << endl;
+            // Using make_unique to create a CheckingAccount on the heap and return a smart pointer
+            return make_unique<CheckingAccount>("CHK-" + to_string(rand() % 1000), "Test User", distribution(generator));
+        }
+        case 4: {
+            cout << "Creating default Savings Account for testing..." << endl;
+            // Using make_unique to create a SavingsAccount on the heap and return a smart pointer
+            return make_unique<SavingsAccount>("SAV-" + to_string(rand() % 1000), "Test User", distribution(generator));
         }
         default:
             cout << "Input is not within the valid range" << endl;
