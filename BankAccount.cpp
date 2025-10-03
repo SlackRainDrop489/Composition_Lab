@@ -6,6 +6,7 @@
 #include "InputValidator.h"
 #include "CheckingAccount.h"
 #include "SavingsAccount.h"
+#include "pipelineprinting.h"
 #include <iostream>
 #include <limits>
 #include <memory>
@@ -14,6 +15,7 @@
 #include <cstdlib>
 #include <random>
 
+using FormattedTable = std::vector<std::vector<std::string>>;
 
 string BankAccount::getAccountNumber() {
     // This will return the account number
@@ -114,6 +116,17 @@ void BankAccount::printAccount(const BankAccount *account) {
     cout << "   Account Holder Name: " << account->accountHolderName << endl;
     cout << "   Balance: " << account->balance << endl;
     cout << "   Account Type: " << account->accountType << endl;
+}
+
+void BankAccount::printAllAccounts(const vector<unique_ptr<BankAccount>> &bankAccounts) {
+    int currentNum = 1;
+    vector<Account> accountData;
+    for (const auto& item : bankAccounts) {
+        accountData.push_back({currentNum, item->getAccountNumber(), item->getAccountType(), item->getAccountHolderName(), item->getBalance()});
+        currentNum+=1;
+    }
+    FormattedTable table_data = pipelineprinting::formatCustomData(accountData);
+    pipelineprinting::printTable(table_data);
 }
 
 BankAccount BankAccount::createAccountFromInput(const vector<unique_ptr<BankAccount> > &bankAccounts) {

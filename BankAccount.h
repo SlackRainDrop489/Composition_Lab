@@ -60,6 +60,8 @@ public:
 
     static void printAccount(const BankAccount* account);
 
+    static void printAllAccounts(const vector<unique_ptr<BankAccount>>& bankAccounts);
+
     static BankAccount createAccountFromInput(const vector<unique_ptr<BankAccount>>& bankAccounts);
 
     static BankAccount copyAccount(const BankAccount* account);

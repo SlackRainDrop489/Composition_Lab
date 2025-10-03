@@ -15,8 +15,10 @@ Lab Activities: Inheritance
 #include "InputValidator.h"
 #include "CheckingAccount.h"
 #include "SavingsAccount.h"
+#include "pipelineprinting.h"
 
 using namespace std;
+using FormattedTable = std::vector<std::vector<std::string>>;
 
 
 void Menu(int accountNum, string accountType) { // This will display the menu
@@ -33,7 +35,8 @@ void Menu(int accountNum, string accountType) { // This will display the menu
     cout << "7. Change account" << endl;
     cout << "8. Print all details" << endl;
     cout << "9. Copy existing account" << endl;
-    cout << "10. Quit" << endl;
+    cout << "10. Print all accounts" << endl;
+    cout << "11. Quit" << endl;
     cout << "---------------------------" << endl;
 }
 
@@ -131,6 +134,7 @@ int main() { // Main function
                         }
                     } else {
                         cout << "Which account would you like to copy? There are currently " << BankAccounts.size() << " accounts" << endl;
+                        BankAccount::printAllAccounts(BankAccounts);
                         int accountToUse = InputValidator::getValidInput<int>("Account Number:");
                         if (accountToUse <= 0 or accountToUse > BankAccounts.size()) {
                             cout << "Your input is not within the valid range of accounts" << endl;
@@ -152,7 +156,10 @@ int main() { // Main function
                     }
                     break;
                 }
-                case 10: // Quit
+                case 10:
+                    BankAccount::printAllAccounts(BankAccounts);
+                    break;
+                case 11: // Quit
                     cout << "Quit";
                     break;
                 default:
@@ -160,6 +167,6 @@ int main() { // Main function
                     break;
             }
         }
-    } while (input != 10); // will run while input is not 10
+    } while (input != 11); // will run while input is not 11
     return 0;
 }

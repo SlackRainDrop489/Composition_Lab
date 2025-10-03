@@ -11,4 +11,6 @@ add_executable(Inheritance_Lab main.cpp
         CheckingAccount.h
         SavingsAccount.cpp
         SavingsAccount.h
+        pipelineprinting.cpp
+        pipelineprinting.h
 )
