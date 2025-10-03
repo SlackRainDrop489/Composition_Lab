@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 4.0)
-project(Inheritance_Lab)
+project(Composition_Lab)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Inheritance_Lab main.cpp
+add_executable(Composition_Lab main.cpp
         BankAccount.cpp
         BankAccount.h
         InputValidator.h
@@ -13,4 +13,6 @@ add_executable(Inheritance_Lab main.cpp
         SavingsAccount.h
         pipelineprinting.cpp
         pipelineprinting.h
+        Transaction.cpp
+        Transaction.h
 )

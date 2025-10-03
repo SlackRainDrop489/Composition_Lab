@@ -10,6 +10,8 @@
 #include <vector>
 #include <memory>
 
+#include "Transaction.h"
+
 using namespace std;
 
 
@@ -19,6 +21,7 @@ private:
     string accountHolderName;
     double balance;
     string accountType;
+    vector<Transaction> transactionHistory;
 
 protected:
     void setAccountType(string AccountType);
