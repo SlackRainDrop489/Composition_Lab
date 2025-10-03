@@ -56,15 +56,15 @@ Inherits BankAccount
 Inherits BankAccount
 
 ## Data Dictionary
-| Attribute     | Data Type | Description |
-|---------------|-----------|-------------|
-| `intrestRate` | `double`  |             |
+| Attribute     | Data Type | Description            |
+|---------------|-----------|------------------------|
+| `intrestRate` | `double`  | Holds the intrest rate |
 
 ## Methods List
 
 | Method Signature                             | Return Type   | Description                                                   |
 |----------------------------------------------|---------------|---------------------------------------------------------------|
 | `SavingsAccount(acountNum, HolderName, bal)` | (Constructor) | Creates a new SavingsAccount object that inherits BankAccount |
-| `calculateIntrest`                           | `void`        |                                                               |
+| `calculateIntrest`                           | `void`        | Adds the intrest to the balance                               |
 
 ---
