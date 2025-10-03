@@ -63,6 +63,8 @@ public:
     static BankAccount createAccountFromInput(const vector<unique_ptr<BankAccount>>& bankAccounts);
 
     static BankAccount copyAccount(const BankAccount* account);
+
+    static BankAccount accountCreator();
 };
 
 

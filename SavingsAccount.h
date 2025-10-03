@@ -12,7 +12,7 @@ private:
     double intrestRate;
 
 public:
-    SavingsAccount();
+    SavingsAccount(string acountNum, string HolderName, double bal);
     void calculateIntrest();
 };
 

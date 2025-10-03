@@ -4,8 +4,8 @@
 
 #include "SavingsAccount.h"
 
-SavingsAccount::SavingsAccount() {
-    BankAccount account;
+SavingsAccount::SavingsAccount(string acountNum, string HolderName, double bal)
+:BankAccount(acountNum, HolderName, bal, "Savings") {
     intrestRate = 0.0;
 }
 

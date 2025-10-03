@@ -2,7 +2,7 @@
 Quinn Alvine
 9/27/25
 This program is for making and editing a bank account
-Lab Activities: Advanced Objects and Classes II
+Lab Activities: Inheritance
 */
 
 #include <iostream>
@@ -10,12 +10,11 @@ Lab Activities: Advanced Objects and Classes II
 #include <vector>
 #include <limits>
 #include <memory>
+#include <chrono>
 #include "BankAccount.h"
 #include "InputValidator.h"
 #include "CheckingAccount.h"
 #include "SavingsAccount.h"
-
-
 
 void Menu(int accountNum, string accountType) { // This will display the menu
     cout << "---------------------------" << endl;
@@ -35,17 +34,13 @@ void Menu(int accountNum, string accountType) { // This will display the menu
     cout << "---------------------------" << endl;
 }
 
-BankAccount firstAccount() {
-    int accountTypeToUse = InputValidator::getValidInput<int>("What kind of account do you want to make? (1) Checking (2) Savings");
-
-}
 
 int main() { // Main function
     //BankAccount BankAccount1("39102", "Unnamed", 0.0, "Savings"); // This creates the first account
     vector<unique_ptr<BankAccount>> BankAccounts;
     //BankAccounts.push_back(BankAccount1); // This adds the first account to the vector
-    CheckingAccount CheckingAccount1("1234", "bob guy", 983.82);
-    BankAccounts.emplace_back(make_unique<BankAccount>(CheckingAccount1));
+    BankAccount newAccount = BankAccount::accountCreator();
+    BankAccounts.emplace_back(make_unique<BankAccount>(newAccount));
     //CheckingAccount::printAccount(CheckingAccount1);
     int currentAccountNum = 0; // This is the current account
     int currentDisplayAccountNum = 1; // This is the account number to be displayed
