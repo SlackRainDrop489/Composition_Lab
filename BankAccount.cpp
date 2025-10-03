@@ -196,7 +196,7 @@ BankAccount BankAccount::accountCreator() {
             return SavingsAccount1;
         }
         default:
-            cout << "Invalid input" << endl;
+            cout << "Input is not within the valid range" << endl;
             return accountCreator();
     }
 }
