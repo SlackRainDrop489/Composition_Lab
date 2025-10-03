@@ -6,7 +6,7 @@
 
 CheckingAccount::CheckingAccount(string acountNum, string HolderName, double bal)
 :BankAccount(acountNum, HolderName, bal, "Checking") {
-    transactionFee = 10000.0;
+    transactionFee = 0.0;
 }
 
 double CheckingAccount::withdraw(double amount) {

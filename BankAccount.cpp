@@ -5,6 +5,8 @@
 #include "BankAccount.h"
 #include "InputValidator.h"
 #include <iostream>
+#include <limits>
+#include <memory>
 
 
 string BankAccount::getAccountNumber() { // This will return the account number
@@ -13,6 +15,10 @@ string BankAccount::getAccountNumber() { // This will return the account number
 
 string BankAccount::getAccountHolderName() { // This will return the bank account holder name
     return accountHolderName;
+}
+
+string BankAccount::getAccountType() {
+    return accountType;
 }
 
 double BankAccount::getBalance() { // This will get the bank account balance
@@ -89,16 +95,24 @@ void BankAccount::printAccount(const BankAccount* account) { // This will print 
     cout << "   Account Type: " << account->accountType << endl;
 }
 
-BankAccount BankAccount::createAccountFromInput(vector<BankAccount>& bankAccounts) { // This will create a new account from input
+BankAccount BankAccount::createAccountFromInput(const vector<unique_ptr<BankAccount>>& bankAccounts) { // This will create a new account from input
     string newAccountNumber;
     string newAccountHolderName;
+    string newAccountType;
     double newBalance;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Create Account Details" << endl;
+    int accountTypeNum = InputValidator::getValidInput<int>("What kind of account do you want to make? (1) Checking (2) Savings: ");
+    if (accountTypeNum == 1) {
+        newAccountType = "Checking";
+    } else {
+        newAccountType = "Savings";
+    }
     cout << "Enter Account Number: ";
     cin.ignore();
     getline(cin, newAccountNumber);
-    for (BankAccount& account : bankAccounts) {
-        if (account.getAccountNumber() == newAccountNumber) {
+    for (const auto& account : bankAccounts) {
+        if (account->getAccountNumber() == newAccountNumber) {
             cout << endl << "There is another account with the same account number. Please try again" << endl;
             return createAccountFromInput(bankAccounts);
         }
@@ -108,7 +122,7 @@ BankAccount BankAccount::createAccountFromInput(vector<BankAccount>& bankAccount
     getline(cin, newAccountHolderName);
     //cin.ignore();
     newBalance = InputValidator::getValidInput<double>("Enter Balance:");
-    return {newAccountNumber, newAccountHolderName, newBalance, "temp Value"};
+    return {newAccountNumber, newAccountHolderName, newBalance, newAccountType};
 }
 
 BankAccount BankAccount::copyAccount(const BankAccount* account) { // This will copy an account

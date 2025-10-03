@@ -17,9 +17,11 @@ Lab Activities: Advanced Objects and Classes II
 
 
 
-void Menu(int accountNum) { // This will display the menu
+void Menu(int accountNum, string accountType) { // This will display the menu
     cout << "---------------------------" << endl;
     cout << "You are in account number: " << accountNum << endl;
+    cout << "Account Type: " << accountType << endl;
+    cout << "---------------------------" << endl;
     cout << "1. Set account holder name" << endl;
     cout << "2. Get account holder name" << endl;
     cout << "3. Get account number" << endl;
@@ -43,7 +45,7 @@ int main() { // Main function
     vector<unique_ptr<BankAccount>> BankAccounts;
     //BankAccounts.push_back(BankAccount1); // This adds the first account to the vector
     CheckingAccount CheckingAccount1("1234", "bob guy", 983.82);
-    BankAccounts.push_back(make_unique<BankAccount>(CheckingAccount1));
+    BankAccounts.emplace_back(make_unique<BankAccount>(CheckingAccount1));
     //CheckingAccount::printAccount(CheckingAccount1);
     int currentAccountNum = 0; // This is the current account
     int currentDisplayAccountNum = 1; // This is the account number to be displayed
@@ -51,7 +53,7 @@ int main() { // Main function
     int accountInputNum; // This is the input for changing accounts
     string newAccountName; // This is for holding the new name of an account
     do { // This is the main loop
-        Menu(currentDisplayAccountNum); // This will display the menu
+        Menu(currentDisplayAccountNum, BankAccounts[currentAccountNum]->getAccountType()); // This will display the menu
         cout << "Enter your choice: "; // This will prompt you for your input
         if (!(cin >> input)) { // This will make sure that you are inputting an int
             cout << "Invalid input" << endl;
@@ -102,7 +104,8 @@ int main() { // Main function
                 }
                 case 6: {
                     // Create new account from input
-                    //BankAccounts.push_back(BankAccount::createAccountFromInput(BankAccounts));
+                    cout << "THIS WILL NOT CREATE A BANKING OR SAVINGS ACCOUNT!" << endl;
+                    BankAccounts.emplace_back(make_unique<BankAccount>(BankAccount::createAccountFromInput(BankAccounts)));
                     break;
                 }
                 case 7: // Change account

@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -30,6 +31,8 @@ public:
     string getAccountNumber();
 
     string getAccountHolderName();
+
+    string getAccountType();
 
     double getBalance();
 
@@ -57,7 +60,7 @@ public:
 
     static void printAccount(const BankAccount* account);
 
-    static BankAccount createAccountFromInput(vector<BankAccount>& bankAccounts);
+    static BankAccount createAccountFromInput(const vector<unique_ptr<BankAccount>>& bankAccounts);
 
     static BankAccount copyAccount(const BankAccount* account);
 };
