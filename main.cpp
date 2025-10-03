@@ -2,7 +2,7 @@
 Quinn Alvine
 10/3/25
 This program is for making and editing a bank account
-Lab Activities: Inheritance
+Lab Activities: Inheritance and Composition
 */
 
 #include <iostream>
