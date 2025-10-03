@@ -14,6 +14,7 @@
 #include <chrono>
 #include <cstdlib>
 #include <random>
+#include <ctime>
 
 using FormattedTable = std::vector<std::vector<std::string>>;
 
@@ -45,12 +46,16 @@ void BankAccount::setAccountHolderName(string accountHoldName) {
 double BankAccount::deposit(double amount) {
     // This will deposit money into the bank account
     balance += amount;
+    Transaction newTransaction("Deposit", amount);
+    transactionHistory.push_back(newTransaction);
     return balance;
 }
 
 double BankAccount::withdraw(double amount) {
     // This will withdraw money from the bank account
     balance -= amount;
+    Transaction newTransaction("Withdraw", amount);
+    transactionHistory.push_back(newTransaction);
     return balance;
 }
 
@@ -212,6 +217,23 @@ unique_ptr<BankAccount> BankAccount::accountCreator() {
         default:
             cout << "Input is not within the valid range" << endl;
             return accountCreator();
+    }
+}
+
+void BankAccount::printHistory() {
+    // This will print out the transaction history
+    vector<Transaction> transactionList = transactionHistory;
+    if (transactionList.empty()) {
+        cout << "There have not been any transactions for this account." << endl;
+    } else {
+        cout << "Transactions from " << this->getAccountNumber() << ": " << endl;
+        for (const Transaction& transaction : transactionHistory) {
+            if (transaction.type == "Deposit") {
+                cout << transaction.timestamp << " | " << transaction.type << "  | + $" << transaction.amount << endl;
+            } else {
+                cout << transaction.timestamp << " | " << transaction.type << " | - $" << transaction.amount << endl;
+            }
+        }
     }
 }
 

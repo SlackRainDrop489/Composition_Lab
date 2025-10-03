@@ -68,3 +68,20 @@ Inherits BankAccount
 | `calculateIntrest`                           | `void`        | Adds the intrest to the balance                               |
 
 ---
+
+# Transaction Class
+
+## Data Dictionary
+| Attribute   | Data Type | Description                                |
+|-------------|-----------|--------------------------------------------|
+| `type`      | `string`  | Holds the type of transaction              |
+| `amount`    | `double`  | Holds the amount added or removed          |
+| `timestamp` | `string`  | Holds the time and date of the transaction |
+
+## Methods List
+
+| Method Signature                          | Return Type   | Description                  |
+|-------------------------------------------|---------------|------------------------------|
+| `Transaction(string type, double amount)` | (Constructor) | Creates a Transaction object |
+
+---

@@ -20,7 +20,8 @@ Lab Activities: Inheritance and Composition
 using namespace std;
 
 
-void Menu(int accountNum, string accountType) { // This will display the menu
+void Menu(int accountNum, string accountType) {
+    // This will display the menu
     cout << "---------------------------" << endl;
     cout << "You are in account number: " << accountNum << endl;
     cout << "Account Type: " << accountType << endl;
@@ -35,29 +36,34 @@ void Menu(int accountNum, string accountType) { // This will display the menu
     cout << "8. Print all details" << endl;
     cout << "9. Copy existing account" << endl;
     cout << "10. Print all accounts" << endl;
-    cout << "11. Quit" << endl;
+    cout << "11. Print transaction history" << endl;
+    cout << "12. Quit" << endl;
     cout << "---------------------------" << endl;
 }
 
 
-int main() { // Main function
-    vector<unique_ptr<BankAccount>> BankAccounts; // This is the vector that all of the accounts are stored in
+int main() {
+    // Main function
+    vector<unique_ptr<BankAccount> > BankAccounts; // This is the vector that all of the accounts are stored in
     BankAccounts.push_back(BankAccount::accountCreator()); // This will create the first account from input
     int currentAccountNum = 0; // This is the current account
     int currentDisplayAccountNum = 1; // This is the account number to be displayed
     int input; // This is the input
     int accountInputNum; // This is the input for changing accounts
     string newAccountName; // This is for holding the new name of an account
-    do { // This is the main loop
+    do {
+        // This is the main loop
         Menu(currentDisplayAccountNum, BankAccounts[currentAccountNum]->getAccountType()); // This will display the menu
         cout << "Enter your choice: "; // This will prompt you for your input
-        if (!(cin >> input)) { // This will make sure that you are inputting an int
+        if (!(cin >> input)) {
+            // This will make sure that you are inputting an int
             cout << "Invalid input" << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         } else {
             cout << endl;
-            switch (input) { // This is the main switch
+            switch (input) {
+                // This is the main switch
                 case 1: // Change account name
                     cout << "Enter account holder name: ";
                     cin.ignore();
@@ -65,7 +71,8 @@ int main() { // Main function
                     BankAccounts[currentAccountNum]->setAccountHolderName(newAccountName);
                     break;
                 case 2: // Get account holder name
-                    cout << "The name of this account is: " << BankAccounts[currentAccountNum]->getAccountHolderName() << endl;
+                    cout << "The name of this account is: " << BankAccounts[currentAccountNum]->getAccountHolderName()
+                            << endl;
                     break;
                 case 3: // Get account number
                     cout << "The account number is: " << BankAccounts[currentAccountNum]->getAccountNumber() << endl;
@@ -75,11 +82,13 @@ int main() { // Main function
                     break;
                 case 5: {
                     // Change balance
-                    int optionInput = InputValidator::getValidInput<int>("Would you like to make a (1) Deposit or (2) a Withdraw:");
+                    int optionInput = InputValidator::getValidInput<int>(
+                        "Would you like to make a (1) Deposit or (2) a Withdraw:");
                     switch (optionInput) {
                         case 1: {
                             // Make a deposit
-                            double deposit = InputValidator::getValidInput<double>("How much would you like to deposit:");
+                            double deposit = InputValidator::getValidInput<double>(
+                                "How much would you like to deposit:");
                             if (deposit <= 0) {
                                 cout << "You can not deposit that amount" << endl;
                             } else {
@@ -89,9 +98,17 @@ int main() { // Main function
                         }
                         case 2: {
                             // Make a withdrawal
-                            cout << endl << "You currently have $" << BankAccounts[currentAccountNum]->getBalance() << endl;
-                            double withdraw = InputValidator::getValidInput<double>("How much would you like to withdraw:");
-                            BankAccounts[currentAccountNum]->withdraw(withdraw);
+                            cout << endl << "You currently have $" << BankAccounts[currentAccountNum]->getBalance() <<
+                                    endl;
+                            double withdraw = InputValidator::getValidInput<double>(
+                                "How much would you like to withdraw:");
+                            if (withdraw <= 0) {
+                                cout << "You can not withdraw that amount" << endl;
+                            } else if (withdraw > BankAccounts[currentAccountNum]->getBalance()) {
+                                cout << "You do not have that much money in your account" << endl;
+                            } else {
+                                BankAccounts[currentAccountNum]->withdraw(withdraw);
+                            }
                             break;
                         }
                         default: ;
@@ -120,7 +137,8 @@ int main() { // Main function
                 case 8: // This will print out the details about a specific account
                     BankAccount::printAccount(BankAccounts[currentAccountNum].get());
                     break;
-                case 9: { // This will let you copy an account
+                case 9: {
+                    // This will let you copy an account
                     // Copy existing account
                     int accountNum = -1;
                     if (BankAccounts.size() == 1) {
@@ -130,7 +148,8 @@ int main() { // Main function
                             accountNum = 0;
                         }
                     } else {
-                        cout << "Which account would you like to copy? There are currently " << BankAccounts.size() << " accounts" << endl;
+                        cout << "Which account would you like to copy? There are currently " << BankAccounts.size() <<
+                                " accounts" << endl;
                         BankAccount::printAllAccounts(BankAccounts);
                         int accountToUse = InputValidator::getValidInput<int>("Account Number:");
                         if (accountToUse <= 0 or accountToUse > BankAccounts.size()) {
@@ -141,12 +160,16 @@ int main() { // Main function
                     }
                     if (accountNum != -1) {
                         if (BankAccounts[accountNum]->getAccountType() == "Checking") {
-                            BankAccount* tempAccount = BankAccounts[accountNum].get();
-                            unique_ptr<BankAccount> copiedAccount = make_unique<CheckingAccount>(tempAccount->getAccountNumber(), tempAccount->getAccountHolderName(), tempAccount->getBalance());
+                            BankAccount *tempAccount = BankAccounts[accountNum].get();
+                            unique_ptr<BankAccount> copiedAccount = make_unique<CheckingAccount>(
+                                tempAccount->getAccountNumber(), tempAccount->getAccountHolderName(),
+                                tempAccount->getBalance());
                             BankAccounts.push_back(std::move(copiedAccount));
                         } else {
-                            BankAccount* tempAccount = BankAccounts[accountNum].get();
-                            unique_ptr<BankAccount> copiedAccount = make_unique<SavingsAccount>(tempAccount->getAccountNumber(), tempAccount->getAccountHolderName(), tempAccount->getBalance());
+                            BankAccount *tempAccount = BankAccounts[accountNum].get();
+                            unique_ptr<BankAccount> copiedAccount = make_unique<SavingsAccount>(
+                                tempAccount->getAccountNumber(), tempAccount->getAccountHolderName(),
+                                tempAccount->getBalance());
                             BankAccounts.push_back(std::move(copiedAccount));
                         }
                         cout << "Account copied." << endl;
@@ -156,7 +179,10 @@ int main() { // Main function
                 case 10: // This will print out data about all accounts
                     BankAccount::printAllAccounts(BankAccounts);
                     break;
-                case 11: // Quit
+                case 11: // Print transaction history
+                    BankAccounts[currentAccountNum]->printHistory();
+                    break;
+                case 12: // Quit
                     cout << "Quit";
                     break;
                 default:
@@ -164,6 +190,6 @@ int main() { // Main function
                     break;
             }
         }
-    } while (input != 11); // will run while input is not 11
+    } while (input != 12); // will run while input is not 11
     return 0;
 }

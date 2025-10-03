@@ -70,6 +70,8 @@ public:
     static BankAccount copyAccount(const BankAccount* account);
 
     static unique_ptr<BankAccount> accountCreator();
+
+    void printHistory();
 };
 
 

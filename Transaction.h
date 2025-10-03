@@ -12,10 +12,11 @@ using namespace std;
 
 
 class Transaction {
-public:
-    string type;
-    double amount;
-    string timestamp;
+	public:
+		string type;
+		double amount;
+		string timestamp;
+		Transaction(string type, double amount);
 };
 
 
