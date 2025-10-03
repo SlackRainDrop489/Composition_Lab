@@ -16,6 +16,9 @@ Lab Activities: Inheritance
 #include "CheckingAccount.h"
 #include "SavingsAccount.h"
 
+using namespace std;
+
+
 void Menu(int accountNum, string accountType) { // This will display the menu
     cout << "---------------------------" << endl;
     cout << "You are in account number: " << accountNum << endl;
@@ -119,27 +122,34 @@ int main() { // Main function
                     break;
                 case 9: { // This will let you copy an account
                     // Copy existing account
-                    cout << "Need to rewrite this!!!!" << endl;
-                    // if (BankAccounts.size() == 1) {
-                    //     cout << "There is only one bank account. Would you like to copy it? (1) Yes (2) No" << endl;
-                    //     int optionInput = InputValidator::getValidInput<int>("Option:");
-                    //     if (optionInput == 1) {
-                    //         BankAccounts.push_back(BankAccount::copyAccount(BankAccounts[0].get()));
-                    //         cout << "Account copied." << endl;
-                    //     }
-                    // } else {
-                    //     cout << "Which account would you like to copy? There are currently " << BankAccounts.size() << " accounts" << endl;
-                    //     int accountToUse = InputValidator::getValidInput<int>("Account Number:");
-                    //     if (accountToUse <= 0 or accountToUse > BankAccounts.size()) {
-                    //         cout << "Your input is not within the valid range of accounts" << endl;
-                    //     } else {
-                    //         BankAccount *copiedAccount((BankAccounts[accountToUse - 1].get()));
-                    //         //push the copy onto the vector
-                    //         BankAccounts.push_back(copiedAccount);
-                    //         //print the new account that is a copy
-                    //         BankAccount::printAccount(copiedAccount);
-                    //     }
-                    // }
+                    int accountNum = -1;
+                    if (BankAccounts.size() == 1) {
+                        cout << "There is only one bank account. Would you like to copy it? (1) Yes (2) No" << endl;
+                        int optionInput = InputValidator::getValidInput<int>("Option:");
+                        if (optionInput == 1) {
+                            accountNum = 0;
+                        }
+                    } else {
+                        cout << "Which account would you like to copy? There are currently " << BankAccounts.size() << " accounts" << endl;
+                        int accountToUse = InputValidator::getValidInput<int>("Account Number:");
+                        if (accountToUse <= 0 or accountToUse > BankAccounts.size()) {
+                            cout << "Your input is not within the valid range of accounts" << endl;
+                        } else {
+                            accountNum = accountToUse - 1;
+                        }
+                    }
+                    if (accountNum != -1) {
+                        if (BankAccounts[accountNum]->getAccountType() == "Checking") {
+                            BankAccount* tempAccount = BankAccounts[accountNum].get();
+                            unique_ptr<BankAccount> copiedAccount = make_unique<CheckingAccount>(tempAccount->getAccountNumber(), tempAccount->getAccountHolderName(), tempAccount->getBalance());
+                            BankAccounts.push_back(std::move(copiedAccount));
+                        } else {
+                            BankAccount* tempAccount = BankAccounts[accountNum].get();
+                            unique_ptr<BankAccount> copiedAccount = make_unique<SavingsAccount>(tempAccount->getAccountNumber(), tempAccount->getAccountHolderName(), tempAccount->getBalance());
+                            BankAccounts.push_back(std::move(copiedAccount));
+                        }
+                        cout << "Account copied." << endl;
+                    }
                     break;
                 }
                 case 10: // Quit

@@ -10,5 +10,5 @@ SavingsAccount::SavingsAccount(string acountNum, string HolderName, double bal)
 }
 
 void SavingsAccount::calculateIntrest() {
-
+    this->deposit(this->intrestRate);
 }
