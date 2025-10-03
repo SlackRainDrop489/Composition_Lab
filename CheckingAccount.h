@@ -14,7 +14,7 @@ private:
 public:
     CheckingAccount(string acountNum, string HolderName, double bal);
 
-    double withdraw(double amount);
+    double withdraw(double amount) override;
 
 
     //CheckingAccount();

@@ -38,9 +38,7 @@ void Menu(int accountNum, string accountType) { // This will display the menu
 int main() { // Main function
     //BankAccount BankAccount1("39102", "Unnamed", 0.0, "Savings"); // This creates the first account
     vector<unique_ptr<BankAccount>> BankAccounts;
-    //BankAccounts.push_back(BankAccount1); // This adds the first account to the vector
-    BankAccount newAccount = BankAccount::accountCreator();
-    BankAccounts.emplace_back(make_unique<BankAccount>(newAccount));
+    BankAccounts.push_back(BankAccount::accountCreator());
     //CheckingAccount::printAccount(CheckingAccount1);
     int currentAccountNum = 0; // This is the current account
     int currentDisplayAccountNum = 1; // This is the account number to be displayed
@@ -99,8 +97,7 @@ int main() { // Main function
                 }
                 case 6: {
                     // Create new account from input
-                    cout << "THIS WILL NOT CREATE A BANKING OR SAVINGS ACCOUNT!" << endl;
-                    BankAccounts.emplace_back(make_unique<BankAccount>(BankAccount::createAccountFromInput(BankAccounts)));
+                    BankAccounts.push_back(BankAccount::accountCreator());
                     break;
                 }
                 case 7: // Change account

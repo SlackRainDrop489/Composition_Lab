@@ -6,7 +6,7 @@
 
 CheckingAccount::CheckingAccount(string acountNum, string HolderName, double bal)
 :BankAccount(acountNum, HolderName, bal, "Checking") {
-    transactionFee = 0.0;
+    transactionFee = 1220.0;
 }
 
 double CheckingAccount::withdraw(double amount) {
@@ -17,6 +17,6 @@ double CheckingAccount::withdraw(double amount) {
         return cAccountBalance;
     } else {
         cout << "Withdrawing $" << amountToWithdraw << " from your account" << endl;
-        BankAccount::withdraw(amountToWithdraw);
+        return BankAccount::withdraw(amountToWithdraw);
     }
 }

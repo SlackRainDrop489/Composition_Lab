@@ -35,7 +35,7 @@ double BankAccount::getBalance() {
 
 void BankAccount::setAccountHolderName(string accountHoldName) {
     // This will set the bank account holder name
-    accountHolderName = accountHoldName;
+    this->accountHolderName = accountHoldName;
 }
 
 double BankAccount::deposit(double amount) {
@@ -71,7 +71,7 @@ BankAccount &BankAccount::operator=(const BankAccount &other) {
 
 BankAccount::~BankAccount() {
     // This is the destructor
-    // No manual memory management is needed, so the destructor is empty.
+    // No manual memory management is needed, but the destructor should be virtual.
 }
 
 BankAccount &BankAccount::operator+=(double amount) {
@@ -152,48 +152,33 @@ BankAccount BankAccount::copyAccount(const BankAccount *account) {
     const BankAccount *newAccount(account);
     return *newAccount;
 }
-
-BankAccount BankAccount::accountCreator() {
+// Gemini AI helpt me rewrite this function. It still has my base code though
+unique_ptr<BankAccount> BankAccount::accountCreator() {
     int accountTypeToUse = InputValidator::getValidInput<int>(
         "What kind of account do you want to make? (1) Checking (2) Savings: ");
+
+    auto getAccountDetails = []() -> tuple<string, string, double> {
+        string newAccountNumber;
+        string newAccountHolderName;
+        double newBalance;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Create Account Details" << endl;
+        cout << "Enter Account Number: ";
+        getline(cin, newAccountNumber);
+        cout << "Enter Account Holder Name: ";
+        getline(cin, newAccountHolderName);
+        newBalance = InputValidator::getValidInput<double>("Enter Balance:");
+        return make_tuple(newAccountNumber, newAccountHolderName, newBalance);
+    };
+
     switch (accountTypeToUse) {
         case 1: {
-            string newAccountNumber;
-            string newAccountHolderName;
-            double newBalance;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Create Account Details" << endl;
-            cout << "Enter Account Number: ";
-            cin.ignore();
-            getline(cin, newAccountNumber);
-            cout << "Enter Account Holder Name: ";
-            getline(cin, newAccountHolderName);
-            newBalance = InputValidator::getValidInput<double>("Enter Balance:");
-            CheckingAccount newAccount(newAccountNumber, newAccountHolderName, newBalance);
-            return newAccount;
+            auto [number, name, balance] = getAccountDetails();
+            return make_unique<CheckingAccount>(number, name, balance);
         }
         case 2: {
-            string newAccountNumber;
-            string newAccountHolderName;
-            double newBalance;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Create Account Details" << endl;
-            cout << "Enter Account Number: ";
-            cin.ignore();
-            getline(cin, newAccountNumber);
-            cout << "Enter Account Holder Name: ";
-            getline(cin, newAccountHolderName);
-            newBalance = InputValidator::getValidInput<double>("Enter Balance:");
-            SavingsAccount newAccount(newAccountNumber, newAccountHolderName, newBalance);
-            return newAccount;
-        }
-        case 3: {
-            CheckingAccount CheckingAccount1("1234", "bob guy", 983.82);
-            return CheckingAccount1;
-        }
-        case 4: {
-            SavingsAccount SavingsAccount1("1234", "bob guy", 983.82);
-            return SavingsAccount1;
+            auto [number, name, balance] = getAccountDetails();
+            return make_unique<SavingsAccount>(number, name, balance);
         }
         default:
             cout << "Input is not within the valid range" << endl;

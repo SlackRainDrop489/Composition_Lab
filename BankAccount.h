@@ -40,13 +40,13 @@ public:
 
     double deposit(double amount);
 
-    double withdraw(double amount);
+    virtual double withdraw(double amount);
 
     BankAccount(const BankAccount& other);
 
     BankAccount& operator=(const BankAccount& other);
 
-    ~BankAccount();
+    virtual ~BankAccount();
 
     BankAccount& operator+=(double amount);
 
@@ -64,7 +64,7 @@ public:
 
     static BankAccount copyAccount(const BankAccount* account);
 
-    static BankAccount accountCreator();
+    static unique_ptr<BankAccount> accountCreator();
 };
 
 
