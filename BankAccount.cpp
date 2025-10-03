@@ -28,6 +28,7 @@ string BankAccount::getAccountHolderName() {
 }
 
 string BankAccount::getAccountType() {
+    // This will return the bank account type
     return accountType;
 }
 
@@ -119,6 +120,7 @@ void BankAccount::printAccount(const BankAccount *account) {
 }
 
 void BankAccount::printAllAccounts(const vector<unique_ptr<BankAccount>> &bankAccounts) {
+    // This will print out data about all accounts
     int currentNum = 1;
     vector<Account> accountData;
     for (const auto& item : bankAccounts) {
@@ -168,6 +170,7 @@ BankAccount BankAccount::copyAccount(const BankAccount *account) {
 }
 // Gemini AI helpt me rewrite this function. It still has my base code though
 unique_ptr<BankAccount> BankAccount::accountCreator() {
+    // This is the new version of the account creator
     mt19937 generator(std::random_device{}());
     uniform_real_distribution<double> distribution(0.0, 10000.0);
     int accountTypeToUse = InputValidator::getValidInput<int>(
@@ -213,7 +216,7 @@ unique_ptr<BankAccount> BankAccount::accountCreator() {
 }
 
 void BankAccount::setAccountType(string AccountType) {
-    cout << "Something happened: " << AccountType << endl;
+    // This will set the account type
     this->accountType = AccountType;
 }
 

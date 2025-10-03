@@ -4,11 +4,13 @@
 
 #include "CheckingAccount.h"
 
+// Constructor for CheckingAccount
 CheckingAccount::CheckingAccount(string acountNum, string HolderName, double bal)
 :BankAccount(acountNum, HolderName, bal, "Checking") {
     transactionFee = 0.0;
 }
 
+// Withdraw method for CheckingAccount
 double CheckingAccount::withdraw(double amount) {
     double cAccountBalance = getBalance();
     double amountToWithdraw = amount + this->transactionFee;

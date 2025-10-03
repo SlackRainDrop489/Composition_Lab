@@ -18,7 +18,6 @@ Lab Activities: Inheritance
 #include "pipelineprinting.h"
 
 using namespace std;
-using FormattedTable = std::vector<std::vector<std::string>>;
 
 
 void Menu(int accountNum, string accountType) { // This will display the menu
@@ -42,10 +41,8 @@ void Menu(int accountNum, string accountType) { // This will display the menu
 
 
 int main() { // Main function
-    //BankAccount BankAccount1("39102", "Unnamed", 0.0, "Savings"); // This creates the first account
-    vector<unique_ptr<BankAccount>> BankAccounts;
-    BankAccounts.push_back(BankAccount::accountCreator());
-    //CheckingAccount::printAccount(CheckingAccount1);
+    vector<unique_ptr<BankAccount>> BankAccounts; // This is the vector that all of the accounts are stored in
+    BankAccounts.push_back(BankAccount::accountCreator()); // This will create the first account from input
     int currentAccountNum = 0; // This is the current account
     int currentDisplayAccountNum = 1; // This is the account number to be displayed
     int input; // This is the input
@@ -120,7 +117,7 @@ int main() { // Main function
                         }
                     }
                     break;
-                case 8:
+                case 8: // This will print out the details about a specific account
                     BankAccount::printAccount(BankAccounts[currentAccountNum].get());
                     break;
                 case 9: { // This will let you copy an account
@@ -156,7 +153,7 @@ int main() { // Main function
                     }
                     break;
                 }
-                case 10:
+                case 10: // This will print out data about all accounts
                     BankAccount::printAllAccounts(BankAccounts);
                     break;
                 case 11: // Quit
